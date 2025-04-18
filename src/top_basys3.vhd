@@ -3,6 +3,8 @@ library ieee;
   use ieee.numeric_std.all;
 
 -- Lab 4
+
+
 entity top_basys3 is
     port(
         -- inputs
@@ -54,6 +56,7 @@ architecture top_basys3_arch of top_basys3 is
 		 );
 	end component elevator_controller_fsm;
 	
+	
 	component TDM4 is
 		generic ( constant k_WIDTH : natural  := 4); -- bits in input and output
         Port ( i_clk		: in  STD_LOGIC;
@@ -78,6 +81,8 @@ architecture top_basys3_arch of top_basys3 is
     end component clock_divider;
 	
 begin
+
+
 	-- PORT MAPS ----------------------------------------
     elevator1: elevator_controller_fsm port map (
     
@@ -121,6 +126,7 @@ begin
             i_clk   => clk,
             i_reset => w_clk_reset,
             
+            
             o_clk   => w_fsm_clk
     );
     TDM4_clkdiv_inst : clock_divider
@@ -140,6 +146,7 @@ begin
 	
 	
 	
+	
 	led(15) <= w_fsm_clk;
 	
 	led(14 downto 0) <= (others => '0');
@@ -150,6 +157,10 @@ begin
 	-- leave unused switches UNCONNECTED. Ignore any warnings this causes.
 	
 	-- reset signals
-
+	w_fsm_reset <=btnR;
+	
+	w_clk_reset <=btnL;
+	
+	
 	
 end top_basys3_arch;
