@@ -132,6 +132,24 @@ begin
             o_clk   => w_TDM4_clk
             
     );
+    sevenseg_decoder_inst : sevenseg_decoder port map (
+        i_Hex => w_Hex,
+        
+        o_seg_n => seg
+    );
+	
+	
+	
+	led(15) <= w_fsm_clk;
+	
+	led(14 downto 0) <= (others => '0');
+	
+	
+	-- LED 15 gets the FSM slow clock signal. The rest are grounded.
+	
+	-- leave unused switches UNCONNECTED. Ignore any warnings this causes.
+	
+	-- reset signals
 
 	
 end top_basys3_arch;
