@@ -2,7 +2,6 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
-
 -- Lab 4
 entity top_basys3 is
     port(
@@ -12,6 +11,7 @@ entity top_basys3 is
         btnU    :   in std_logic; -- master_reset
         btnL    :   in std_logic; -- clk_reset
         btnR    :   in std_logic; -- fsm_reset
+
         
         -- outputs
         led :   out std_logic_vector(15 downto 0);
@@ -25,7 +25,16 @@ end top_basys3;
 architecture top_basys3_arch of top_basys3 is
 
     -- signal declarations
+        -- signal declarations
+    signal w_fsm_clk : std_logic := '0';
+    signal w_tdm4_clk : std_logic := '0';
+    signal w_fsm_reset : std_logic := '0';
+    signal w_clk_reset : std_logic := '0';
     
+    signal w_floor : std_logic_vector(3 downto 0):= x"0"; --
+    signal w_floor2 : std_logic_vector(3 downto 0):= x"0";
+    signal w_hex : std_logic_vector(3 downto 0):= x"0";
+
   
 	-- component declarations
     component sevenseg_decoder is
