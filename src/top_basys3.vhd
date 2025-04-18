@@ -79,14 +79,59 @@ architecture top_basys3_arch of top_basys3 is
 	
 begin
 	-- PORT MAPS ----------------------------------------
-    	
-	
-	-- CONCURRENT STATEMENTS ----------------------------
-	
-	-- LED 15 gets the FSM slow clock signal. The rest are grounded.
-	
-	-- leave unused switches UNCONNECTED. Ignore any warnings this causes.
-	
-	-- reset signals
+    elevator1: elevator_controller_fsm port map (
+    
+        i_clk => w_fsm_clk,
+        i_reset => w_fsm_reset,
+        
+        
+        is_stopped => sw(0),
+        go_up_down => sw(1),
+        
+        o_floor => w_floor
+    );	 
+    elevator2: elevator_controller_fsm port map (
+    
+    
+        i_clk => w_fsm_clk,
+        i_reset => w_fsm_reset,
+        
+        is_stopped => sw(14),
+        go_up_down => sw(15),
+        o_floor => w_floor2
+    );	
+    TDM4_inst: TDM4 port map (
+        i_clk => w_tdm4_clk,
+        
+        i_reset => w_fsm_reset,
+        
+        i_D0 => w_floor,
+        i_D1 => x"F",
+        i_D2 => w_floor2,
+        i_D3 => x"F",
+        
+        
+        o_data => w_Hex,
+        o_sel => an
+    );    
+    fsm_clkdiv_inst : clock_divider
+        generic map ( k_DIV => 25000000 )
+        port map (	
+        
+            i_clk   => clk,
+            i_reset => w_clk_reset,
+            
+            o_clk   => w_fsm_clk
+    );
+    TDM4_clkdiv_inst : clock_divider
+        generic map ( k_DIV => 100000 )
+        port map (	
+            i_clk   => clk,
+            i_reset => w_clk_reset,
+            
+            o_clk   => w_TDM4_clk
+            
+    );
+
 	
 end top_basys3_arch;
