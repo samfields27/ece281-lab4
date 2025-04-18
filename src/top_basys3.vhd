@@ -157,9 +157,9 @@ begin
 	-- leave unused switches UNCONNECTED. Ignore any warnings this causes.
 	
 	-- reset signals
-	w_fsm_reset <=btnR;
+	w_fsm_reset <= btnU or btnR;
 	
-	w_clk_reset <=btnL;
+	w_clk_reset <= btnU or btnL;
 	
 	
 	
